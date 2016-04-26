@@ -19,15 +19,19 @@ class Evaluation_Rec(object):
 		recommendation: recommendations
 			Type: dict
 			Format: key==user, value==[(item,score)...]
+		N: the number of recommendations
+			Type: int
+			Format: < all items
 		criteria: set of criteria
 			Type: set
 			Format: ('Recall','Precision','Coverage','Popularity')
 	"""
-	def __init__(self,mat_train,mat_behavior,recommendation,criteria):
+	def __init__(self,mat_train,mat_behavior,recommendation,N,criteria):
 		super(Evaluation_Rec, self).__init__()
 		self._mat_train = mat_train.tocsr()
 		self._mat_behavior = mat_behavior.tocsr()
 		self._recommendation = recommendation
+		self._N = N
 		self._criteria = criteria
 
 		self._result = self._Evaluation()
@@ -54,7 +58,7 @@ class Evaluation_Rec(object):
 		demand_cri = set(['Recall','Precision','Coverage','Popularity'])
 		if demand_cri.intersection(self._criteria):
 			for user in self._recommendation.keys():
-				RecSet[user] = set(map(lambda x:x[0],self._recommendation[user]))
+				RecSet[user] = set(map(lambda x:x[0],self._recommendation[user][:self._N]))
 		# print RecSet
 
 		# BehSet: B(u) Behavior set of users
@@ -177,6 +181,8 @@ def test():
 	Interacting = np.array([1]*5)
 	mat_behavior = coo_matrix((Interacting,(User,Item)),shape=(4,5))
 
+	N = 1
+
 	recommendation = {
 		0: [(2, 0.74158162379719639), (4, 0.74158162379719639)], 
 		1: [(3, 0.81649658092772615), (1, 0.40824829046386307)], 
@@ -188,7 +194,7 @@ def test():
 	"""
 	Test
 	"""
-	task = Evaluation_Rec(mat_train,mat_behavior,recommendation,criteria)
+	task = Evaluation_Rec(mat_train,mat_behavior,recommendation,N,criteria)
 	print task._result
 
 

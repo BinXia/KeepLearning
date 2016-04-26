@@ -231,26 +231,39 @@ def main():
 	UVCFile = ['10_mat','11_mat','12_mat','1_mat','2_mat','3_mat','4_mat','5_mat','6_mat','8_mat']
 
 	for x in xrange(len(UVCFile)-1):
+		mission._mat_train = mission.genUserVenueMat(UVCFile[x])
+		mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1])
+		
 		for nearPerson in xrange(1,100,5):
-			mission._mat_train = mission.genUserVenueMat(UVCFile[x])
-			mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1])
-
-
 			parameters = {'Data': UVCFile[x], 'K': nearPerson}
 			recommender = UserCF(mission._mat_train)
 			mission._recommendation = recommender.Recommend(K=parameters['K'])
 
-			# parameters = {'Data': UVCFile[x]}
-			# recommender = MostPopular(mission._mat_train)
-			# mission._recommendation = recommender.Recommend(N=parameters['N'])
+		# for similarItem in xrange(1,100,5):
+		# 	parameters = {'Data': UVCFile[x], 'K': similarItem}
+		# 	recommender = ItemCF(mission._mat_train)
+		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
+
+		# for mp in xrange(1):
+		# 	parameters = {'Data': UVCFile[x]}
+		# 	recommender = MostPopular(mission._mat_train)
+		# 	mission._recommendation = recommender.Recommend()
+
+		# for n_component in xrange(1,1000,10):
+		# 	parameters = {'Data': UVCFile[x], 'n_component', n_component}
+		# 	recommender = MatrixFactorization(mission._mat_train)
+		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
+
 
 			criteria = set(['Recall','Precision','Coverage'])
 			for N in xrange(10,100):
 				parameters['N'] = N
-				result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation[:N],criteria)._result
+				result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
 				CriteriaWriter(type(recommender).__name__,parameters,result)
+
+				print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.values())),','.join(map(str,result.values())))
 				break
-			
+
 
 	# for x in xrange(10,100):
 	# 	lamda = 0.5 # (0,1)
