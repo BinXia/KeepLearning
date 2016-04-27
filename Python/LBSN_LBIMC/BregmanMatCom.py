@@ -239,20 +239,20 @@ def main():
 		# 	recommender = UserCF(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
 
-		for similarItem in xrange(1,100,5):
-			parameters = {'Data': UVCFile[x], 'K': similarItem}
-			recommender = ItemCF(mission._mat_train)
-			mission._recommendation = recommender.Recommend(K=parameters['K'])
+		# for similarItem in xrange(1,100,5):
+		# 	parameters = {'Data': UVCFile[x], 'K': similarItem}
+		# 	recommender = ItemCF(mission._mat_train)
+		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
 
 		# for mp in xrange(1):
 		# 	parameters = {'Data': UVCFile[x]}
 		# 	recommender = MostPopular(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend()
 
-		# for n_component in xrange(1,1000,10):
-		# 	parameters = {'Data': UVCFile[x], 'n_component', n_component}
-		# 	recommender = MatrixFactorization(mission._mat_train)
-		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
+		for n_component in xrange(1,1000,10):
+			parameters = {'Data': UVCFile[x], 'n_component': n_component}
+			recommender = MatrixFactorization(mission._mat_train)
+			mission._recommendation = recommender.Recommend(K=parameters['n_component'])
 
 
 			criteria = set(['Recall','Precision','Coverage'])

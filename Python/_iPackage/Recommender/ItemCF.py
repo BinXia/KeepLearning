@@ -126,7 +126,7 @@ class ItemCF(object):
 	def Recommend(self,K=2,user=-1):
 		if user == -1:
 			recommendation = dict()
-			for user in xrange(self._sim_mat.get_shape()[0]):
+			for user in xrange(self._mat.get_shape()[0]):
 				recommendation[user] = self.__CalAndRankRec(K,user)
 			return recommendation
 		else:
