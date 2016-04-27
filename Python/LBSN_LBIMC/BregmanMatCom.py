@@ -234,15 +234,15 @@ def main():
 		mission._mat_train = mission.genUserVenueMat(UVCFile[x])
 		mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1])
 		
-		for nearPerson in xrange(1,100,5):
-			parameters = {'Data': UVCFile[x], 'K': nearPerson}
-			recommender = UserCF(mission._mat_train)
-			mission._recommendation = recommender.Recommend(K=parameters['K'])
-
-		# for similarItem in xrange(1,100,5):
-		# 	parameters = {'Data': UVCFile[x], 'K': similarItem}
-		# 	recommender = ItemCF(mission._mat_train)
+		# for nearPerson in xrange(1,100,5):
+		# 	parameters = {'Data': UVCFile[x], 'K': nearPerson}
+		# 	recommender = UserCF(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
+
+		for similarItem in xrange(1,100,5):
+			parameters = {'Data': UVCFile[x], 'K': similarItem}
+			recommender = ItemCF(mission._mat_train)
+			mission._recommendation = recommender.Recommend(K=parameters['K'])
 
 		# for mp in xrange(1):
 		# 	parameters = {'Data': UVCFile[x]}
