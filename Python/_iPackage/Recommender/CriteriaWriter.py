@@ -20,6 +20,11 @@ class CriteriaWriter(object):
 	def _writer(self):
 		PATH = os.getcwd()
 
+		if not os.path.isfile(PATH+'/'+self._recommender+'.cri'):
+			File = open(PATH+'/'+self._recommender+'.cri','w')
+			File.write('%s\t%s\n'%(','.join(map(str,self._parameters)),','.join(map(str,self._result))))
+			File.close()
+
 		File = open(PATH+'/'+self._recommender+'.cri','a')
 		File.write('%s\t%s\n'%(','.join(map(str,self._parameters.values())),','.join(map(str,self._result.values()))))
 		File.close()

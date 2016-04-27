@@ -244,10 +244,10 @@ def main():
 		# 	recommender = ItemCF(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
 
-		# for mp in xrange(1):
-		# 	parameters = {'Data': UVCFile[x]}
-		# 	recommender = MostPopular(mission._mat_train)
-		# 	mission._recommendation = recommender.Recommend()
+		for mp in xrange(1):
+			parameters = {'Data': UVCFile[x]}
+			recommender = MostPopular(mission._mat_train)
+			mission._recommendation = recommender.Recommend()
 
 		# for n_component in xrange(1,1000,10):
 		# 	parameters = {'Data': UVCFile[x], 'n_component': n_component}
@@ -255,20 +255,20 @@ def main():
 		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
 
 		# for iteration in xrange(10,100,10):
-		for Lambda in xrange(0,10):
-			Lambda = 1.0*Lambda/10
+		# for Lambda in xrange(0,10):
+		# 	Lambda = 1.0*Lambda/10
 		# for Mu in xrange(500,2000,100):
 		# for Delta in xrange(0,20):
 		# 	Delta = 1.0*Delta/10
-			parameters = {'Data': UVCFile[x], 'Lambda':Lambda, 'Mu':1000, 'Delta':1, 'iteration':10}
-			recommender = LBIMC(
-							mat=mission._mat_train,
-							iteration=parameters['iteration'],
-							Lambda=parameters['Lambda'],
-							Mu=parameters['Mu'],
-							Delta=parameters['Delta']
-							)
-			mission._recommendation = recommender.Recommend()
+			# parameters = {'Data': UVCFile[x], 'Lambda':Lambda, 'Mu':1000, 'Delta':1, 'iteration':10}
+			# recommender = LBIMC(
+			# 				mat=mission._mat_train,
+			# 				iteration=parameters['iteration'],
+			# 				Lambda=parameters['Lambda'],
+			# 				Mu=parameters['Mu'],
+			# 				Delta=parameters['Delta']
+			# 				)
+			# mission._recommendation = recommender.Recommend()
 
 
 			criteria = set(['Recall','Precision','Coverage'])
@@ -277,7 +277,7 @@ def main():
 				result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
 				CriteriaWriter(type(recommender).__name__,parameters,result)
 
-				print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.values())),','.join(map(str,result.values())))
+				print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.items())),','.join(map(str,result.items())))
 				break
 
 
