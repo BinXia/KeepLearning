@@ -249,10 +249,26 @@ def main():
 		# 	recommender = MostPopular(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend()
 
-		for n_component in xrange(1,1000,10):
-			parameters = {'Data': UVCFile[x], 'n_component': n_component}
-			recommender = MatrixFactorization(mission._mat_train)
-			mission._recommendation = recommender.Recommend(K=parameters['n_component'])
+		# for n_component in xrange(1,1000,10):
+		# 	parameters = {'Data': UVCFile[x], 'n_component': n_component}
+		# 	recommender = MatrixFactorization(mission._mat_train)
+		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
+
+		# for iteration in xrange(10,100,10):
+		for Lambda in xrange(0,10):
+			Lambda = 1.0*Lambda/10
+		# for Mu in xrange(500,2000,100):
+		# for Delta in xrange(0,20):
+		# 	Delta = 1.0*Delta/10
+			parameters = {'Data': UVCFile[x], 'Lambda':Lambda, 'Mu':1000, 'Delta':1, 'iteration':10}
+			recommender = LBIMC(
+							mat=mission._mat_train,
+							iteration=parameters['iteration'],
+							Lambda=parameters['Lambda'],
+							Mu=parameters['Mu'],
+							Delta=parameters['Delta']
+							)
+			mission._recommendation = recommender.Recommend()
 
 
 			criteria = set(['Recall','Precision','Coverage'])

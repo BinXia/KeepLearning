@@ -113,7 +113,7 @@ class Evaluation_Rec(object):
 		for user in RecSet.keys():
 			Sum_intersection += len(RecSet[user].intersection(BehSet[user]))
 			Sum_behavior += len(BehSet[user])
-		return '%5.2f'%(1.0*Sum_intersection/Sum_behavior)
+		return '%5.3f'%(1.0*Sum_intersection/Sum_behavior)
 
 	"""
 	Precision = \frac{\sum_{u\in U}|RecSet[u]\cap BehSet[u]|}{\sum_{u\in U}|RecSet[u]|}
@@ -124,7 +124,7 @@ class Evaluation_Rec(object):
 		for user in RecSet.keys():
 			Sum_intersection += len(RecSet[user].intersection(BehSet[user]))
 			Sum_recommendation += len(RecSet[user])
-		return '%5.2f'%(1.0*Sum_intersection/Sum_recommendation)
+		return '%5.3f'%(1.0*Sum_intersection/Sum_recommendation)
 
 	"""
 	Coverage = \frac{|\bigcup_{u\in U}RecSet[u]|}{|I|}
@@ -133,7 +133,7 @@ class Evaluation_Rec(object):
 		Sum_set = set()
 		for user in RecSet.keys():
 			Sum_set = Sum_set.union(RecSet[user])
-		return '%5.2f'%(1.0*len(Sum_set)/AllItem)
+		return '%5.3f'%(1.0*len(Sum_set)/AllItem)
 
 	"""
 	Popularity = 

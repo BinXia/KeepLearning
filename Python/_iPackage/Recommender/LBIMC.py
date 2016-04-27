@@ -104,7 +104,6 @@ class LBIMC(object):
 
 	def Recommend(self,user=-1):
 		RecMat = self._LBIMC(self._mat,self._Lambda,self._Mu,self._Delta)
-		print RecMat
 
 		if user == -1:
 			recommendation = dict()
