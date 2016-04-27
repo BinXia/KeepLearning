@@ -71,7 +71,7 @@ class Evaluation_Rec(object):
 
 		# AllItem: |I| number of all items
 		AllItem = 0
-		demand_cri = set(['Coverage'])
+		demand_cri = set(['Coverage','Coverage_Gini'])
 		if demand_cri.intersection(self._criteria):
 			AllItem = self._mat_behavior.get_shape()[1]
 		# print AllItem
@@ -97,6 +97,9 @@ class Evaluation_Rec(object):
 
 		if 'Coverage' in self._criteria:
 			criteria['Coverage'] = self.__Coverage(RecSet,AllItem)
+
+		if 'Coverage_Gini' in self._criteria:
+			criteria['Coverage_Gini'] = self.__Coverage_Gini(RecSet,AllItem)
 
 		if 'Popularity' in self._criteria:
 			criteria['Popularity'] = self.__Popularity(RecSet,item_count)
@@ -135,6 +138,19 @@ class Evaluation_Rec(object):
 			Sum_set = Sum_set.union(RecSet[user])
 		return '%5.3f'%(1.0*len(Sum_set)/AllItem)
 
+	"""
+	Coverage_Gini = \frac{1}{n-1}\sum^{n}_{i=1}(2j-n-1)p(l_i)
+	"""
+	def __Coverage_Gini(self,RecSet,AllItem):
+		G = 0.0
+		ItemList = np.zeros(AllItem)
+		for user in RecSet.keys():
+			for location in RecSet[user]:
+				ItemList[location] += 1
+		ItemListOrder = sorted([[index,score] for index,score in enumerate(ItemList)], key=lambda x:x[1])
+		for i,[item,score] in enumerate(ItemListOrder):
+			G += (2*(i+1)-AllItem-1)*(1.0*score/len(RecSet))
+		return 1.0*G/(AllItem-1)
 	"""
 	Popularity = 
 	"""
@@ -189,7 +205,7 @@ def test():
 		2: [(3, 0.81649658092772615), (0, 0.40824829046386307)], 
 		3: [(0, 0.74158162379719639), (1, 0.74158162379719639)]
 	}
-	criteria = set(['Recall','Precision','Coverage','Popularity'])
+	criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
 
 	"""
 	Test
