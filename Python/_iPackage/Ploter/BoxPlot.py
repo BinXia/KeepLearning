@@ -1,8 +1,5 @@
 import numpy as np
-from matplotlib.pyplot import plt
-from matplotlib.backends.backend_pdf import PdfPages
-
-
+import matplotlib.pyplot as plt
 
 
 
@@ -12,47 +9,55 @@ class BoxPlot(object):
 		This is the default setting of boxplot used in my experiments.
 	Graph type:
 		boxplot
-	Parameters:
+	Input:
+		data: the data of point
+			Type: dict()
+			Format:
+				data = {
+					'A': np.array([0,1,2,3,4,5,6,7,8,9]),
+					'B': np.array([4,5,4,5,4,5,4,5,4,5]),
+					'C': np.array([3,2,3,2,3,2,3,2,3,2]),
+					'D': np.array([7,8,7,8,7,8,7,8,7,8]),
+					'E': np.array([5,6,7,8,9,5,6,7,8,9])
+				}
+		parameters: the parameters to setup boxplot
+			Type: dict()
+			Format:
 
 	"""
-	def __init__(self, data):
+	def __init__(self, data, parameters=0):
 		super(BoxPlot, self).__init__()
 		self._data = data
-		
-		
+		self._parameters = parameters
+
 		self._PlotAndSave()
+
 
 
 	"""
 	Function:
 		def __initData(self):
 		def _PlotAndSave(self):
+	Mission:
+		Plot and save figure.
 	"""
 	def __initData(self):
-		for x_axis in self._data:
-			
-
+		Data = list()
+		Label = list()
+		for x_axis,y_axis in self._data.items():
+			Label.append(x_axis)
+			Data.append(y_axis)
+		return Data,Label
 
 
 	def _PlotAndSave(self):
-		self.__initData()
+		Data,Label = self.__initData()
 
 
-		fig, axes = plt.subplots(nrows=1, ncols=1)
-		axes[0, 0].boxplot(data, labels=labels)
-		axes[0, 0].set_title('Default', fontsize=fs)
+		fig, axes = plt.subplots(nrows=2, ncols=3)
+		axes[0, 0].boxplot(Data, labels=Label)
+		axes[0, 0].set_title('Default', fontsize=10)
 
-
-
-		pp = PdfPages('test.pdf')
-
-
-
-
-
-
-		pp.savefig()
-		PP.close()
 
 
 
@@ -67,13 +72,7 @@ def test():
 		D: np.array([7,8,7,8,7,8,7,8,7,8])
 		E: np.array([5,6,7,8,9,5,6,7,8,9])
 	"""
-	data = {
-		'A': np.array([0,1,2,3,4,5,6,7,8,9]),
-		'B': np.array([4,5,4,5,4,5,4,5,4,5]),
-		'C': np.array([3,2,3,2,3,2,3,2,3,2]),
-		'D': np.array([7,8,7,8,7,8,7,8,7,8]),
-		'E': np.array([5,6,7,8,9,5,6,7,8,9])
-	}
+	data = 
 
 
 
