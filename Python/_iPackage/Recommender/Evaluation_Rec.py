@@ -150,7 +150,9 @@ class Evaluation_Rec(object):
 		ItemListOrder = sorted([[index,score] for index,score in enumerate(ItemList)], key=lambda x:x[1])
 		for i,[item,score] in enumerate(ItemListOrder):
 			G += (2*(i+1)-AllItem-1)*(1.0*score/len(RecSet))
-		return 1.0*G/(AllItem-1)
+		return '%5.3f'%(1.0*G/(AllItem-1))
+
+		
 	"""
 	Popularity = 
 	"""
