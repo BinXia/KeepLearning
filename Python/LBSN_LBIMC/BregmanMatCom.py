@@ -236,10 +236,10 @@ def main():
 
 		
 		
-		# for nearPerson in xrange(1,100,5):
-		# 	parameters = {'Data': UVCFile[x], 'K': nearPerson}
-		# 	recommender = UserCF(mission._mat_train)
-		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
+		for nearPerson in xrange(10,11,1):
+			parameters = {'Data': UVCFile[x], 'K': nearPerson}
+			recommender = UserCF(mission._mat_train)
+			mission._recommendation = recommender.Recommend(K=parameters['K'])
 
 		# for similarItem in xrange(1,100,5):
 		# 	parameters = {'Data': UVCFile[x], 'K': similarItem}
@@ -262,31 +262,24 @@ def main():
 		# for Mu in xrange(500,2000,100):
 		# for Delta in xrange(0,20):
 		# 	Delta = 1.0*Delta/10
-			# parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':iteration}
-			# recommender = LBIMC(
-			# 				mat=mission._mat_train,
-			# 				iteration=parameters['iteration'],
-			# 				Lambda=parameters['Lambda'],
-			# 				Mu=parameters['Mu'],
-			# 				Delta=parameters['Delta']
-			# 				)
-			# mission._recommendation = recommender.Recommend()
+			parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':iteration}
+			recommender = LBIMC(
+							mat=mission._mat_train,
+							iteration=parameters['iteration'],
+							Lambda=parameters['Lambda'],
+							Mu=parameters['Mu'],
+							Delta=parameters['Delta']
+							)
+			mission._recommendation = recommender.Recommend()
 
 
-			# criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
-			# for N in xrange(10,100):
-			# 	parameters['N'] = N
-			# 	result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
-			# 	CriteriaWriter(type(recommender).__name__,parameters,result)
+			criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
+			for N in xrange(1,100):
+				parameters['N'] = N
+				result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
+				CriteriaWriter(type(recommender).__name__,parameters,result)
 
-			# 	print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.items())),','.join(map(str,result.items())))
-			# 	break
-
-
-	# for x in xrange(10,100):
-	# 	lamda = 0.5 # (0,1)
-	# 	mu = 1000   # (500,2000)
-	# 	delta = 1   # (0,2)
+				print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.items())),','.join(map(str,result.items())))
 
 
 
