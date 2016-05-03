@@ -262,15 +262,15 @@ def main():
 		# for Mu in xrange(500,2000,100):
 		# for Delta in xrange(0,20):
 		# 	Delta = 1.0*Delta/10
-			parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':iteration}
-			recommender = LBIMC(
-							mat=mission._mat_train,
-							iteration=parameters['iteration'],
-							Lambda=parameters['Lambda'],
-							Mu=parameters['Mu'],
-							Delta=parameters['Delta']
-							)
-			mission._recommendation = recommender.Recommend()
+		# 	parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':iteration}
+		# 	recommender = LBIMC(
+		# 					mat=mission._mat_train,
+		# 					iteration=parameters['iteration'],
+		# 					Lambda=parameters['Lambda'],
+		# 					Mu=parameters['Mu'],
+		# 					Delta=parameters['Delta']
+		# 					)
+		# 	mission._recommendation = recommender.Recommend()
 
 
 			criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
