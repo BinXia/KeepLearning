@@ -241,7 +241,7 @@ def main():
 			recommender = UserCF(mission._mat_train)
 			mission._recommendation = recommender.Recommend(K=parameters['K'])
 
-		# for similarItem in xrange(1,100,5):
+		# for similarItem in xrange(80,81,1):
 		# 	parameters = {'Data': UVCFile[x], 'K': similarItem}
 		# 	recommender = ItemCF(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
@@ -274,7 +274,7 @@ def main():
 
 
 			criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
-			for N in xrange(1,100):
+			for N in xrange(10,110,10):
 				parameters['N'] = N
 				result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
 				CriteriaWriter(type(recommender).__name__,parameters,result)
