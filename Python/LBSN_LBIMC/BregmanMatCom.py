@@ -236,10 +236,10 @@ def main():
 
 		
 		
-		for nearPerson in xrange(10,11,1):
-			parameters = {'Data': UVCFile[x], 'K': nearPerson}
-			recommender = UserCF(mission._mat_train)
-			mission._recommendation = recommender.Recommend(K=parameters['K'])
+		# for nearPerson in xrange(10,11,1):
+		# 	parameters = {'Data': UVCFile[x], 'K': nearPerson}
+		# 	recommender = UserCF(mission._mat_train)
+		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
 
 		# for similarItem in xrange(80,81,1):
 		# 	parameters = {'Data': UVCFile[x], 'K': similarItem}
@@ -251,10 +251,10 @@ def main():
 		# 	recommender = MostPopular(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend()
 
-		# for n_component in xrange(1,1000,10):
-		# 	parameters = {'Data': UVCFile[x], 'n_component': n_component}
-		# 	recommender = MatrixFactorization(mission._mat_train)
-		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
+		for n_component in xrange(650,660,10):
+			parameters = {'Data': UVCFile[x], 'n_component': n_component}
+			recommender = MatrixFactorization(mission._mat_train)
+			mission._recommendation = recommender.Recommend(K=parameters['n_component'])
 
 		# for iteration in xrange(10,200,10):
 		# for Lambda in xrange(0,10):
