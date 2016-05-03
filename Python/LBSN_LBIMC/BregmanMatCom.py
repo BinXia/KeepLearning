@@ -233,6 +233,8 @@ def main():
 	for x in xrange(len(UVCFile)-1):
 		mission._mat_train = mission.genUserVenueMat(UVCFile[x])
 		mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1])
+
+		
 		
 		# for nearPerson in xrange(1,100,5):
 		# 	parameters = {'Data': UVCFile[x], 'K': nearPerson}
@@ -254,31 +256,31 @@ def main():
 		# 	recommender = MatrixFactorization(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
 
-		for iteration in xrange(10,200,10):
+		# for iteration in xrange(10,200,10):
 		# for Lambda in xrange(0,10):
 		# 	Lambda = 1.0*Lambda/10
 		# for Mu in xrange(500,2000,100):
 		# for Delta in xrange(0,20):
 		# 	Delta = 1.0*Delta/10
-			parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':iteration}
-			recommender = LBIMC(
-							mat=mission._mat_train,
-							iteration=parameters['iteration'],
-							Lambda=parameters['Lambda'],
-							Mu=parameters['Mu'],
-							Delta=parameters['Delta']
-							)
-			mission._recommendation = recommender.Recommend()
+			# parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':iteration}
+			# recommender = LBIMC(
+			# 				mat=mission._mat_train,
+			# 				iteration=parameters['iteration'],
+			# 				Lambda=parameters['Lambda'],
+			# 				Mu=parameters['Mu'],
+			# 				Delta=parameters['Delta']
+			# 				)
+			# mission._recommendation = recommender.Recommend()
 
 
-			criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
-			for N in xrange(10,100):
-				parameters['N'] = N
-				result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
-				CriteriaWriter(type(recommender).__name__,parameters,result)
+			# criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
+			# for N in xrange(10,100):
+			# 	parameters['N'] = N
+			# 	result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
+			# 	CriteriaWriter(type(recommender).__name__,parameters,result)
 
-				print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.items())),','.join(map(str,result.items())))
-				break
+			# 	print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.items())),','.join(map(str,result.items())))
+			# 	break
 
 
 	# for x in xrange(10,100):
