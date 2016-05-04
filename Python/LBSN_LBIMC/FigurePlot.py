@@ -6,6 +6,7 @@ from BoxPlot import BoxPlot
 import MySQLdb
 import numpy as np
 from datetime import datetime
+import re
 
 
 periods = [
@@ -85,8 +86,6 @@ def plotUserBoxPlot():
 	task = BoxPlot(path='./SparsityOfUser.pdf')
 	task._PlotFigure(sparsity,'Save')
 
-
-
 def plotVenueBoxPlot():
 	sparsityRange = [
 		1,
@@ -148,14 +147,57 @@ def plotVenueBoxPlot():
 	task = BoxPlot(path='./SparsityOfVenue.pdf')
 	task._PlotFigure(sparsity,'Save')
 
+def plotRecommender():
+	results = ['UserCF.cri','ItemCF.cri','MostPopular.cri','MatrixFactorization.cri','LBIMC.cri']
+	data = dict()
 
+	for FILE_ID,FILE in enumerate(results):
+		# initialization
+		parameters = dict()
+		data.setdefault(FILE[:-4],{})
+		data[FILE[:-4]].setdefault('Precision',[])
+		data[FILE[:-4]].setdefault('Recall',[])
+		data[FILE[:-4]].setdefault('Coverage',[])
+		data[FILE[:-4]].setdefault('Coverage_Gini',[])
+
+		for index,datum in enumerate(open('./Results/'+FILE).readlines()):
+			datum = re.split(',|\t',datum.strip())
+			if index == 0:
+				for para_id,para in enumerate(datum):
+					parameters[para] = para_id
+			else:
+				if datum[parameters['N']] == '10':
+					data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
+					data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
+					data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
+					data[FILE[:-4]]['Coverage_Gini'].append(datum[parameters['Coverage_Gini']])
+
+	order = {
+		'UserCF':'0',
+		'ItemCF':'1',
+		'MostPopular':'2',
+		'MatrixFactorization':'3',
+		'LBIMC':'4'
+	}
+	criteria = dict()
+	for recommender,value in data.items():
+		for criterion,array in value.items():
+			criteria.setdefault(criterion,{})
+			criteria[criterion].setdefault(order[recommender],{})
+			criteria[criterion][order[recommender]]['Label'] = recommender
+			criteria[criterion][order[recommender]]['Data'] = np.array(map(float,array))
+
+
+	for criterion,criterion_data in criteria.items():
+		task = BoxPlot(path='./'+ criterion +'.pdf')
+		task._PlotFigure(criterion_data,'Save')
 
 
 
 def test():
 	# plotUserBoxPlot()
-	plotVenueBoxPlot()
-
+	# plotVenueBoxPlot()
+	plotRecommender()
 
 
 if __name__ == '__main__':test()

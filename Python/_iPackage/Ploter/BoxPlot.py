@@ -135,6 +135,8 @@ class BoxPlot(object):
 		else:
 			plt.show()
 
+		plt.close('all')
+
 
 	def _PlotFigures(self,data_figs):
 		for data_fig in data_figs:

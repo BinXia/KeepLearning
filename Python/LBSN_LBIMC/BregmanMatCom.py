@@ -232,7 +232,7 @@ def main():
 
 	for x in xrange(len(UVCFile)-1):
 		mission._mat_train = mission.genUserVenueMat(UVCFile[x])
-		mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1])
+		mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1]) - mission.genUserVenueMat(UVCFile[x])
 
 		
 		
@@ -241,36 +241,37 @@ def main():
 		# 	recommender = UserCF(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
 
-		# for similarItem in xrange(80,81,1):
-		# 	parameters = {'Data': UVCFile[x], 'K': similarItem}
-		# 	recommender = ItemCF(mission._mat_train)
-		# 	mission._recommendation = recommender.Recommend(K=parameters['K'])
+		for similarItem in xrange(80,81,1):
+			parameters = {'Data': UVCFile[x], 'K': similarItem}
+			recommender = ItemCF(mission._mat_train,previous=True)
+			mission._recommendation = recommender.Recommend(K=parameters['K'])
 
 		# for mp in xrange(1):
 		# 	parameters = {'Data': UVCFile[x]}
 		# 	recommender = MostPopular(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend()
 
-		for n_component in xrange(650,660,10):
-			parameters = {'Data': UVCFile[x], 'n_component': n_component}
-			recommender = MatrixFactorization(mission._mat_train)
-			mission._recommendation = recommender.Recommend(K=parameters['n_component'])
+		# for n_component in xrange(650,660,10):
+		# 	parameters = {'Data': UVCFile[x], 'n_component': n_component}
+		# 	recommender = MatrixFactorization(mission._mat_train)
+		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
 
-		# for iteration in xrange(10,200,10):
+		# for iteration in xrange(60,200,200):
 		# for Lambda in xrange(0,10):
 		# 	Lambda = 1.0*Lambda/10
 		# for Mu in xrange(500,2000,100):
 		# for Delta in xrange(0,20):
 		# 	Delta = 1.0*Delta/10
-		# 	parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':iteration}
-		# 	recommender = LBIMC(
-		# 					mat=mission._mat_train,
-		# 					iteration=parameters['iteration'],
-		# 					Lambda=parameters['Lambda'],
-		# 					Mu=parameters['Mu'],
-		# 					Delta=parameters['Delta']
-		# 					)
-		# 	mission._recommendation = recommender.Recommend()
+			# parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':0.2, 'iteration':iteration}
+			# recommender = LBIMC(
+			# 				mat=mission._mat_train,
+			# 				iteration=parameters['iteration'],
+			# 				previous=False,
+			# 				Lambda=parameters['Lambda'],
+			# 				Mu=parameters['Mu'],
+			# 				Delta=parameters['Delta']
+			# 				)
+			# mission._recommendation = recommender.Recommend()
 
 
 			criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])

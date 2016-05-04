@@ -12,10 +12,10 @@ class MostPopular(object):
 			Type: coo_matrix or csr_matrix
 			Format: row for users, col for items
 	"""
-	def __init__(self,mat):
+	def __init__(self,mat,previous=True):
 		super(MostPopular, self).__init__()
 		self._mat = mat
-		
+		self._previous = previous
 
 
 

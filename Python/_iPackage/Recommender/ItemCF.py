@@ -109,6 +109,7 @@ class ItemCF(object):
 		else:
 			user_item = list(self._mat.getrow(user).toarray()[0,:])
 			candidate = set([index for index,i in enumerate(user_item) if i == 0])
+			
 		recommendation = dict()
 		for item,another_items in sim_item.items():
 			interesting = self._mat[user,item]
