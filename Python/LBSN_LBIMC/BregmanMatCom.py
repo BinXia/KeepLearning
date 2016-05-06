@@ -239,9 +239,9 @@ def main():
 		mission._mat_train = mission._mat_train.tolil()
 		for row in random.sample(range(mission._mat_train.get_shape()[0]),10):
 			mission._mat_train[row,random.randint(0,mission._mat_train.get_shape()[1]-1)] = random.randint(100,200)
-		
+			
 		for col in random.sample(range(mission._mat_train.get_shape()[1]),10):
-			mission._mat_train[:,col] = np.array([random.randint(100,200) for x in xrange(mission._mat_train.get_shape()[0])])
+			mission._mat_train[:,col] = np.mat([random.randint(100,200) for x in xrange(mission._mat_train.get_shape()[0])]).T
 		
 		
 		# for nearPerson in xrange(10,11,1):
@@ -264,32 +264,33 @@ def main():
 		# 	recommender = MatrixFactorization(mission._mat_train)
 		# 	mission._recommendation = recommender.Recommend(K=parameters['n_component'])
 
-		# for iteration in xrange(60,200,200):
+		for iteration in xrange(50,600,50):
 		# for Lambda in xrange(0,10):
 		# 	Lambda = 1.0*Lambda/10
 		# for Mu in xrange(500,2000,100):
 		# for Delta in xrange(0,20):
 		# 	Delta = 1.0*Delta/10
-			# parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':0.2, 'iteration':iteration}
-			# recommender = LBIMC(
-			# 				mat=mission._mat_train,
-			# 				iteration=parameters['iteration'],
-			# 				previous=False,
-			# 				Lambda=parameters['Lambda'],
-			# 				Mu=parameters['Mu'],
-			# 				Delta=parameters['Delta']
-			# 				)
-			# mission._recommendation = recommender.Recommend()
+			parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':0.2, 'iteration':iteration}
+			recommender = LBIMC(
+							mat=mission._mat_train,
+							iteration=parameters['iteration'],
+							previous=False,
+							Lambda=parameters['Lambda'],
+							Mu=parameters['Mu'],
+							Delta=parameters['Delta']
+							)
+			mission._recommendation = recommender.Recommend()
 
 
-			# criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
-			# for N in xrange(1,101):
-			# 	parameters['N'] = N
-			# 	result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
-			# 	CriteriaWriter(type(recommender).__name__,parameters,result)
+			criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
+			for N in xrange(1,101):
+				parameters['N'] = N
+				result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
+				CriteriaWriter(type(recommender).__name__,parameters,result)
 
-			# 	print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.items())),','.join(map(str,result.items())))
-		return
+				print '%s\t%s\t%s'%(type(recommender).__name__,','.join(map(str,parameters.items())),','.join(map(str,result.items())))
+
+
 
 
 if __name__ == '__main__':	main()
