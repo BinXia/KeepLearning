@@ -1,3 +1,7 @@
 .DS_Store
 *.pyc
 *.cri
+
+
+# LBSN_LBIMC
+./Python/LBSN_LBIMC/*.pdf
