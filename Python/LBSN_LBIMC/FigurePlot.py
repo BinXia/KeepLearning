@@ -148,8 +148,14 @@ def plotVenueBoxPlot():
 	task._PlotFigure(sparsity,'Save')
 
 def plotRecommender():
-	results = ['UserCF.cri','ItemCF.cri','MostPopular.cri','MatrixFactorization.cri','LBIMC.cri']
+	# results = ['UserCF.cri','ItemCF.cri','MostPopular.cri','MatrixFactorization.cri','LBIMC.cri']
+	results = ['MostPopular.cri','ItemCF.cri','UserCF.cri','MatrixFactorization.cri','LBIMC.cri']
+	# results = ['MostPopular.cri','UserCF.cri','ItemCF.cri','MatrixFactorization.cri']
 	data = dict()
+	order = dict()
+	for i,x in enumerate(results):
+		order[x[:-4]] = str(i)
+
 
 	for FILE_ID,FILE in enumerate(results):
 		# initialization
@@ -160,6 +166,7 @@ def plotRecommender():
 		data[FILE[:-4]].setdefault('Coverage',[])
 		data[FILE[:-4]].setdefault('Coverage_Gini',[])
 
+
 		for index,datum in enumerate(open('./Results/'+FILE).readlines()):
 			datum = re.split(',|\t',datum.strip())
 			if index == 0:
@@ -167,18 +174,19 @@ def plotRecommender():
 					parameters[para] = para_id
 			else:
 				if datum[parameters['N']] == '10':
-					data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
-					data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
-					data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
-					data[FILE[:-4]]['Coverage_Gini'].append(datum[parameters['Coverage_Gini']])
+					if FILE == 'LBIMC.cri':
+						if datum[parameters['iteration']] == '450':
+							data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
+							data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
+							data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
+							data[FILE[:-4]]['Coverage_Gini'].append(datum[parameters['Coverage_Gini']])
+					else:
+						data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
+						data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
+						data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
+						data[FILE[:-4]]['Coverage_Gini'].append(datum[parameters['Coverage_Gini']])
 
-	order = {
-		'UserCF':'0',
-		'ItemCF':'1',
-		'MostPopular':'2',
-		'MatrixFactorization':'3',
-		'LBIMC':'4'
-	}
+
 	criteria = dict()
 	for recommender,value in data.items():
 		for criterion,array in value.items():
