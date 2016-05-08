@@ -173,14 +173,14 @@ def plotRecommender():
 				for para_id,para in enumerate(datum):
 					parameters[para] = para_id
 			else:
-				if datum[parameters['N']] == '10':
-					if FILE == 'LBIMC.cri':
-						if datum[parameters['iteration']] == '450':
-							data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
-							data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
-							data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
-							data[FILE[:-4]]['Coverage_Gini'].append(datum[parameters['Coverage_Gini']])
-					else:
+				if FILE == 'LBIMC.cri':
+					if datum[parameters['iteration']] == '600' and datum[parameters['N']] == '20':
+						data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
+						data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
+						data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
+						data[FILE[:-4]]['Coverage_Gini'].append(datum[parameters['Coverage_Gini']])
+				else:
+					if datum[parameters['N']] == '20':
 						data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
 						data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
 						data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
