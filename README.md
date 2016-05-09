@@ -1,5 +1,5 @@
 # KeepLearning
-This is the repository conducted by experiments in my paper.
+This is the repository conducted by my experiments.
 ## File Sturcture
 * [Python](https://github.com/BinXia/KeepLearning/tree/master/Python)
   * [_iPackage](https://github.com/BinXia/KeepLearning/tree/master/Python/_iPackage)
