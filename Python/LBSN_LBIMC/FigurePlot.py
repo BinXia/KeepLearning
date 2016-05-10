@@ -49,9 +49,9 @@ def plotUserBoxPlot():
 		'7',
 		'8',
 		'9',
-		'10-12',
-		'12-15',
-		'15-20'
+		'10-15',
+		'15-20',
+		'>20'
 	]
 	sparsityLevel = dict()
 	for sparsity in xrange(0,len(sparsityRange)-1):
@@ -81,10 +81,19 @@ def plotUserBoxPlot():
 		sparsity[key]['Label'] = sparsityLevel[key]['Label']
 		
 
-	print sparsity
+	parameters = {
+		'showmeans': False
+	}
+	task = BoxPlot(path='./SparsityOfUser.pdf',parameters=parameters)
+	parameters = {
+		'xlabel': 'Sparsity Level',
+		'ylabel': 'Number of Users',
+		'ticksize': 14,
+		'labelsize': 14,
+		'figwidth': 9
+	}
+	task._PlotFigure(data_fig=sparsity,SaveOrShow='Save',parameters=parameters)
 
-	task = BoxPlot(path='./SparsityOfUser.pdf')
-	task._PlotFigure(sparsity,'Save')
 
 def plotVenueBoxPlot():
 	sparsityRange = [
@@ -112,9 +121,9 @@ def plotVenueBoxPlot():
 		'7',
 		'8',
 		'9',
-		'10-12',
-		'12-15',
-		'15-20'
+		'10-15',
+		'15-20',
+		'>20'
 	]
 	sparsityLevel = dict()
 	for sparsity in xrange(0,len(sparsityRange)-1):
@@ -142,10 +151,19 @@ def plotVenueBoxPlot():
 		sparsity[key]['Label'] = sparsityLevel[key]['Label']
 		
 
-	print sparsity
 
-	task = BoxPlot(path='./SparsityOfVenue.pdf')
-	task._PlotFigure(sparsity,'Save')
+	parameters = {
+		'showmeans': False
+	}
+	task = BoxPlot(path='./SparsityOfVenue.pdf',parameters=parameters)
+	parameters = {
+		'xlabel': 'Sparsity Level',
+		'ylabel': 'Number of Locations',
+		'ticksize': 14,
+		'labelsize': 14,
+		'figwidth': 9
+	}
+	task._PlotFigure(data_fig=sparsity,SaveOrShow='Save',parameters=parameters)
 
 def plotRecommender():
 	# results = ['UserCF.cri','ItemCF.cri','MostPopular.cri','MatrixFactorization.cri','LBIMC.cri']
@@ -173,8 +191,9 @@ def plotRecommender():
 				for para_id,para in enumerate(datum):
 					parameters[para] = para_id
 			else:
+				# if datum[parameters['Data']] == '3_mat':
 				if FILE == 'LBIMC.cri':
-					if datum[parameters['iteration']] == '600' and datum[parameters['N']] == '20':
+					if datum[parameters['iteration']] == '400' and datum[parameters['N']] == '20':
 						data[FILE[:-4]]['Precision'].append(datum[parameters['Precision']])
 						data[FILE[:-4]]['Recall'].append(datum[parameters['Recall']])
 						data[FILE[:-4]]['Coverage'].append(datum[parameters['Coverage']])
@@ -197,15 +216,20 @@ def plotRecommender():
 
 
 	for criterion,criterion_data in criteria.items():
+		# if criterion=='Precision':
+		# 	for i,data in criterion_data.items():
+		# 		print data['Label']
+		# 		print np.var(data['Data'])
+
 		task = BoxPlot(path='./'+ criterion +'.pdf')
-		task._PlotFigure(criterion_data,'Save')
+		task._CustomizeAndSave(plt=task._PlotFigure(criterion_data),SaveOrShow='Save')
 
 
 
 def test():
-	# plotUserBoxPlot()
-	# plotVenueBoxPlot()
-	plotRecommender()
+	plotUserBoxPlot()
+	plotVenueBoxPlot()
+	# plotRecommender()
 
 
 if __name__ == '__main__':test()

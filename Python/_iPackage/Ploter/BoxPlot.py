@@ -2,6 +2,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+import sys
+sys.path.append('../../_iPackage')
+import _toolkits
+from CustomizeFigure import CustomizeFigure
 
 
 class BoxPlot(object):
@@ -45,7 +49,7 @@ class BoxPlot(object):
 				# An array or sequence whose first dimension (or length) is compatible with x. This overrides the medians computed by matplotlib for each element of usermedians that is not None. When an element of usermedians == None, the median will be computed by matplotlib as normal.
 			'conf_intervals':None,
 				# Array or sequence whose first dimension (or length) is compatible with x and whose second dimension is 2. When the current element of conf_intervals is not None, the notch locations computed by matplotlib are overridden (assuming notch is True). When an element of conf_intervals is None, boxplot compute notches the method specified by the other kwargs (e.g., bootstrap).
-			'patch_artist':False,
+			'patch_artist':True,
 				# If False produces boxes with the Line2D artist If True produces boxes with the Patch artist
 			'showmeans':True,
 				# If True, will toggle one the rendering of the means
@@ -69,8 +73,10 @@ class BoxPlot(object):
 				# If provided, will set the plotting style of the means
 			'meanline':False,
 				# If True (and showmeans is True), will try to render the mean as a line spanning the full width of the box according to meanprops. Not recommended if shownotches is also True. Otherwise, means will be shown as points.
-			'manage_xticks':True
+			'manage_xticks':True,
 				# If the function should adjust the xlim and xtick locations.
+			'facecolor':['#00BFFF']
+				# the filled color of box. Format: ['#00BFFF','#00BFFF','#00BFFF','#00BFFF']; Type: list and color.
 		}
 		for key,value in parameters.items():
 			self._parameters[key] = value
@@ -102,10 +108,15 @@ class BoxPlot(object):
 		return Data,Label
 
 
-	def _PlotFigure(self,data_fig,SaveOrShow):
+	def _PlotFigure(self,data_fig,SaveOrShow='Show',parameters={}):
 		Data,Label = self.__initData(data_fig)
 
-		plt.boxplot(
+		fig = plt.figure()
+		CustomizeFigure(figure=plt,parameters=parameters)
+		ax = fig.add_subplot(111)
+
+
+		bp = ax.boxplot(
 			x=Data,
 			notch=self._parameters['notch'],
 			sym=self._parameters['sym'],
@@ -130,20 +141,41 @@ class BoxPlot(object):
 			manage_xticks=self._parameters['manage_xticks']
 		)
 
+		# change outline color, fill color and linewidth of the boxes
+		for box,facecolor in zip(bp['boxes'],self._parameters['facecolor']*len(bp['boxes'])):
+			# change outline color
+			box.set(color=('#000000'), linewidth=1)
+			# change fill color
+			box.set(facecolor=facecolor)
+
+		# change color and linewidth of the whiskers
+		for whisker in bp['whiskers']:
+			whisker.set(color='#000000', linewidth=2)
+
+		# change color and linewidth of the caps
+		for cap in bp['caps']:
+			cap.set(color='#000000', linewidth=2)
+
+		# change color and linewidth of the medians
+		for median in bp['medians']:
+			median.set(color='#000000', linewidth=2)
+
+		# change the style of fliers and their fill
+		for flier in bp['fliers']:
+			flier.set(marker='o', color='#e7298a', alpha=0.5)
+
+		# Remove top axes and right axes ticks
+		ax.get_xaxis().tick_bottom()
+		ax.get_yaxis().tick_left()
+
+
+
 		if SaveOrShow == 'Save':
 			plt.savefig(self._path)
 		else:
 			plt.show()
-
 		plt.close('all')
 
-
-	def _PlotFigures(self,data_figs):
-		for data_fig in data_figs:
-			# fig, axes = plt.subplots(nrows=2, ncols=3)
-			# axes[0, 0].boxplot(Data, labels=Label)
-			# axes[0, 0].set_title('Default', fontsize=10)
-			pass
 
 
 
@@ -170,7 +202,11 @@ def test():
 	Test
 	"""
 	task = BoxPlot()
-	task._PlotFigure(data,'Show')
+	parameters = {
+		'xlabel': 'Sparsity',
+		'ylabel': 'Number of Users',
+	}
+	task._PlotFigure(data_fig=data,SaveOrShow='Show',parameters=parameters)
 
 
 

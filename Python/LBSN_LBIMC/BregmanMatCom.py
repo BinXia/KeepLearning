@@ -208,7 +208,7 @@ class MatrixCompletion(object):
 
 def printResult(mission,recommender,parameters):
 	criteria = set(['Recall','Precision','Coverage','Coverage_Gini'])
-	for N in xrange(1,101):
+	for N in xrange(10,101,10):
 		parameters['N'] = N
 		result = Evaluation_Rec(mission._mat_train,mission._mat_behavior,mission._recommendation,N,criteria)._result
 		CriteriaWriter(type(recommender).__name__,parameters,result)
@@ -217,6 +217,16 @@ def printResult(mission,recommender,parameters):
 
 def main():
 	UserN = 1271
+	# UserN = 1357
+	# UserN = 1474
+	# UserN = 1567
+	# UserN = 1753
+	# UserN = 1883
+	# UserN = 2016
+	# UserN = 2101
+	# UserN = 2194
+	# UserN = 2470
+
 	VenueN = 2583
 
 	mission = MatrixCompletion(UserN,VenueN)
@@ -239,73 +249,73 @@ def main():
 
 	UVCFile = ['10_mat','11_mat','12_mat','1_mat','2_mat','3_mat','4_mat','5_mat','6_mat','8_mat']
 	# UVCFile = ['11_mat','12_mat','1_mat','2_mat','3_mat','4_mat','5_mat','6_mat','8_mat']
-	RANGE = [
-		[0,50],
-		[50,100],
-		[100,150],
-		[150,200],
-		[200,250]
-	]
+	# RANGE = [
+	# 	[0,50],
+	# 	[50,100],
+	# 	[100,150],
+	# 	[150,200],
+	# 	[200,250]
+	# ]
 	
-	for range_i in RANGE:
-		for x in xrange(len(UVCFile)-1):
-			mission._mat_train = mission.genUserVenueMat(UVCFile[x])
-			mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1]) - mission.genUserVenueMat(UVCFile[x])
+	# for range_i in RANGE:
+	for x in xrange(len(UVCFile)-1):
+		mission._mat_train = mission.genUserVenueMat(UVCFile[x])
+		mission._mat_behavior = mission.genUserVenueMat(UVCFile[x+1]) - mission.genUserVenueMat(UVCFile[x])
 
-			mission._mat_train = mission._mat_train.tolil()
-			for row in random.sample(range(mission._mat_train.get_shape()[0]),10):
-				mission._mat_train[row,random.randint(0,mission._mat_train.get_shape()[1]-1)] = random.randint(range_i[0],range_i[1])
-				
-			for col in random.sample(range(mission._mat_train.get_shape()[1]),10):
-				mission._mat_train[:,col] = np.mat([random.randint(range_i[0],range_i[1]) for z in xrange(mission._mat_train.get_shape()[0])]).T
+		# mission._mat_train = mission._mat_train.tolil()
+		# for row in random.sample(range(mission._mat_train.get_shape()[0]),10):
+		# 	mission._mat_train[row,random.randint(0,mission._mat_train.get_shape()[1]-1)] = random.randint(range_i[0],range_i[1])
 			
+		# for col in random.sample(range(mission._mat_train.get_shape()[1]),10):
+		# 	mission._mat_train[:,col] = np.mat([random.randint(range_i[0],range_i[1]) for z in xrange(mission._mat_train.get_shape()[0])]).T
+		
 
-			
-			for nearPerson in xrange(10,11,1):
-				parameters = {'Data': UVCFile[x], 'K': nearPerson}
-				recommender = UserCF(mission._mat_train)
-				mission._recommendation = recommender.Recommend(K=parameters['K'])
-			printResult(mission,recommender,parameters)
-
-
-			for similarItem in xrange(20,21,1):
-				parameters = {'Data': UVCFile[x], 'K': similarItem}
-				recommender = ItemCF(mission._mat_train,previous=True)
-				mission._recommendation = recommender.Recommend(K=parameters['K'])
-			printResult(mission,recommender,parameters)
+		
+		for nearPerson in xrange(10,11,1):
+			parameters = {'Data': UVCFile[x], 'K': nearPerson}
+			recommender = UserCF(mission._mat_train)
+			mission._recommendation = recommender.Recommend(K=parameters['K'])
+		printResult(mission,recommender,parameters)
 
 
-			for mp in xrange(1):
-				parameters = {'Data': UVCFile[x]}
-				recommender = MostPopular(mission._mat_train)
-				mission._recommendation = recommender.Recommend()
-			printResult(mission,recommender,parameters)
+		for similarItem in xrange(20,21,1):
+			parameters = {'Data': UVCFile[x], 'K': similarItem}
+			recommender = ItemCF(mission._mat_train,previous=True)
+			mission._recommendation = recommender.Recommend(K=parameters['K'])
+		printResult(mission,recommender,parameters)
 
 
-			for n_component in xrange(200,210,10):
-				parameters = {'Data': UVCFile[x], 'n_component': n_component}
-				recommender = MatrixFactorization(mission._mat_train)
-				mission._recommendation = recommender.Recommend(K=parameters['n_component'])
-			printResult(mission,recommender,parameters)
+		for mp in xrange(1):
+			parameters = {'Data': UVCFile[x]}
+			recommender = MostPopular(mission._mat_train)
+			mission._recommendation = recommender.Recommend()
+		printResult(mission,recommender,parameters)
 
 
-			for iteration in xrange(1):
-			# for Lambda in xrange(0,10):
-			# 	Lambda = 1.0*Lambda/10
-			# for Mu in xrange(500,2000,100):
-			# for Delta in xrange(0,20):
-			# 	Delta = 1.0*Delta/10
-				parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':400}
-				recommender = LBIMC(
-								mat=mission._mat_train,
-								iteration=parameters['iteration'],
-								previous=True,
-								Lambda=parameters['Lambda'],
-								Mu=parameters['Mu'],
-								Delta=parameters['Delta']
-								)
-				mission._recommendation = recommender.Recommend()
-			printResult(mission,recommender,parameters)
+		for n_component in xrange(200,210,10):
+			parameters = {'Data': UVCFile[x], 'n_component': n_component}
+			recommender = MatrixFactorization(mission._mat_train)
+			mission._recommendation = recommender.Recommend(K=parameters['n_component'])
+		printResult(mission,recommender,parameters)
+
+
+		for iteration in xrange(1):
+		# for Lambda in xrange(0,10):
+		# 	Lambda = 1.0*Lambda/10
+		# for Mu in xrange(500,2000,100):
+		# for Delta in xrange(0,20):
+		# 	Delta = 1.0*Delta/10
+			parameters = {'Data': UVCFile[x], 'Lambda':0.1, 'Mu':500, 'Delta':1, 'iteration':400}
+			recommender = LBIMC(
+							mat=mission._mat_train,
+							iteration=parameters['iteration'],
+							previous=True,
+							Lambda=parameters['Lambda'],
+							Mu=parameters['Mu'],
+							Delta=parameters['Delta']
+							)
+			mission._recommendation = recommender.Recommend()
+		printResult(mission,recommender,parameters)
 
 
 			
