@@ -216,10 +216,10 @@ def printResult(mission,recommender,parameters):
 
 
 def main():
-	UserN = 1271
+	# UserN = 1271
 	# UserN = 1357
 	# UserN = 1474
-	# UserN = 1567
+	UserN = 1567
 	# UserN = 1753
 	# UserN = 1883
 	# UserN = 2016
@@ -227,7 +227,7 @@ def main():
 	# UserN = 2194
 	# UserN = 2470
 
-	VenueN = 2583
+	VenueN = 2584
 
 	mission = MatrixCompletion(UserN,VenueN)
 	# mission.oputUserVenue()

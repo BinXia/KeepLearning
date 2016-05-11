@@ -221,15 +221,24 @@ def plotRecommender():
 		# 		print data['Label']
 		# 		print np.var(data['Data'])
 
-		task = BoxPlot(path='./'+ criterion +'.pdf')
-		task._CustomizeAndSave(plt=task._PlotFigure(criterion_data),SaveOrShow='Save')
+		parameters = {
+			'facecolor' = ['#98FB98','#63B8FF','#BF3EFF','#FFD700','#FF3E96']
+		}
+		task = BoxPlot(path='./'+ criterion +'.pdf',parameters=parameters)
+		parameters = {
+			'ticksize': 14,
+			'labelsize': 14,
+			'figwidth': 9,
+			'figheight': 5
+		}
+		task._PlotFigure(data_fig=criterion_data,SaveOrShow='Save',parameters=parameters)
 
 
 
 def test():
-	plotUserBoxPlot()
-	plotVenueBoxPlot()
-	# plotRecommender()
+	# plotUserBoxPlot()
+	# plotVenueBoxPlot()
+	plotRecommender()
 
 
 if __name__ == '__main__':test()

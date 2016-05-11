@@ -36,6 +36,7 @@ class CustomizeFigure(object):
 				# font size of xtick and ytick. Format: 12; Type: int
 		}
 
+		# load input parameters
 		for key,value in parameters.items():
 			self._parameters[key] = value
 
