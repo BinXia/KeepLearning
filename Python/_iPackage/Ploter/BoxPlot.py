@@ -25,6 +25,9 @@ class BoxPlot(object):
 		self._path = path
 
 		self._parameters = {
+
+			##### parameters for boxplot #####
+
 			'notch':False,
 				# If False, produces a rectangular box plot. If True, will produce a notched box plot
 			'sym':'b+',
@@ -63,12 +66,26 @@ class BoxPlot(object):
 				# If provided, will set the plotting style of the means
 			'meanline':False,
 				# If True (and showmeans is True), will try to render the mean as a line spanning the full width of the box according to meanprops. Not recommended if shownotches is also True. Otherwise, means will be shown as points.
-			'manage_xticks':False,
+			'manage_xticks':True,
 				# If the function should adjust the xlim and xtick locations.
-			'widths': 0.5,
+
+
+			###### parameters for components such as box, whisker, cap, median, and flier ######
+
+			### box ###
+			'box_widths': 0.5,
 				# the width of box, if width is equal to 1, then no distance between two boxes.
-			'facecolor':['#00BFFF']
+			'box_facecolor': ['#00BFFF'],
 				# the filled color of box. Format: ['#00BFFF','#00BFFF','#00BFFF','#00BFFF']; Type: list and color.
+			### whisker ###
+			'whisker_linestyle': '-',
+				# line style for whisker
+			### cap ###
+
+			### median ###
+
+			### flier ###
+
 		}
 
 
@@ -115,7 +132,7 @@ class BoxPlot(object):
 	"""
 	def __decoration(self,bp):
 		# change outline color, fill color and linewidth of the boxes
-		for box,facecolor in zip(bp['boxes'],self._parameters['facecolor']*len(bp['boxes'])):
+		for box,facecolor in zip(bp['boxes'],self._parameters['box_facecolor']*len(bp['boxes'])):
 			# change outline color
 			box.set(color=('#000000'), linewidth=1)
 			# change fill color
@@ -123,7 +140,7 @@ class BoxPlot(object):
 
 		# change color and linewidth of the whiskers
 		for whisker in bp['whiskers']:
-			whisker.set(color='#000000', linewidth=2)
+			whisker.set(color='#000000', linewidth=1, linestyle=self._parameters['whisker_linestyle'])
 
 		# change color and linewidth of the caps
 		for cap in bp['caps']:
@@ -182,12 +199,11 @@ class BoxPlot(object):
 
 		Data,Label = self.__initData(data_fig)
 
+
 		fig = plt.figure()
 		CustomizeFigure(figure=plt,parameters=parameters['common'])
 		ax = fig.add_subplot(111)
-		# Remove top axes and right axes ticks
-		ax.get_xaxis().tick_bottom()
-		ax.get_yaxis().tick_left()
+		
 
 		bp = ax.boxplot(
 			x=Data,
@@ -199,7 +215,7 @@ class BoxPlot(object):
 			usermedians=self._parameters['usermedians'],
 			conf_intervals=self._parameters['conf_intervals'],
 			patch_artist=self._parameters['patch_artist'],
-			labels=Label,
+			# labels=Label,
 			showmeans=self._parameters['showmeans'],
 			showcaps=self._parameters['showcaps'],
 			showbox=self._parameters['showbox'],
@@ -212,8 +228,13 @@ class BoxPlot(object):
 			meanprops=self._parameters['meanprops'],
 			meanline=self._parameters['meanline'],
 			manage_xticks=self._parameters['manage_xticks'],
-			widths=self._parameters['widths']
+			widths=self._parameters['box_widths']
 		)
+
+
+		# Remove top axes and right axes ticks
+		ax.get_xaxis().tick_bottom()
+		ax.get_yaxis().tick_left()
 
 		self.__decoration(bp)
 		self.__SaveOrShow(SaveOrShow)
@@ -260,7 +281,7 @@ class BoxPlot(object):
 				meanprops=self._parameters['meanprops'],
 				meanline=self._parameters['meanline'],
 				manage_xticks=self._parameters['manage_xticks'],
-				widths=self._parameters['widths']
+				widths=self._parameters['box_widths']
 			)
 
 			self.__decoration(bp)
@@ -301,16 +322,28 @@ def test():
 	parameters = {
 		'boxplot':{
 			'positions': [range(1,6),range(7,12),range(13,18),range(19,24),range(25,30)],
-			'widths': 0.99
+			'box_widths': 0.5,
+			'manage_xticks': False
 		},
 		'common':{
+			'xticklabel': ['Sparsity','Sparsity','Sparsity','Sparsity','Sparsity'],
+			'xtick': range(1,6),
 			'xlabel': 'Sparsity',
 			'ylabel': 'Number of Users',
-			# 'figwidth': 12
+			# 'figwidth': 15
+			'legend': {
+				'type':'patch',
+				'loc':4,
+				'mode':'expand',
+				'ncol':5,
+				'color':['#000000','#000000','#000000','#000000','#000000'],
+				'linestyle':'-',
+				'label':['A','B','C','D','E'],
+			},
 		}
 	}
-	# task._PlotFigure(data_fig=data,SaveOrShow='Show',parameters=parameters)
-	task._PlotGroupFigure(data_fig=data_group,SaveOrShow='Show',parameters=parameters)
+	task._PlotFigure(data_fig=data,SaveOrShow='Show',parameters=parameters)
+	# task._PlotGroupFigure(data_fig=data_group,SaveOrShow='Show',parameters=parameters)
 
 
 
