@@ -16,4 +16,3 @@ This is the repository conducted by my experiments.
     * [Ploter](https://github.com/BinXia/KeepLearning/tree/master/Python/_iPackage/Ploter)
       * CustomizeFigure.py
       * BoxPlot.py
-  * [LBSN_LBIMC](https://github.com/BinXia/KeepLearning/tree/master/Python/LBSN_LBIMC)
