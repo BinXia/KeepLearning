@@ -1,6 +1,7 @@
 !function(){
 
-	var jsonfile = "ZoomableSunburst.json";
+	var jsonfile = "vis_text copy.json",
+		instance = "#vis_text";
 
 	var width = 960,
 		height = 700,
@@ -43,7 +44,7 @@
 		.innerRadius(function(d){return Math.max(0,d.y?y(d.y):d.y);})
 		.outerRadius(function(d){return Math.max(0,y(d.y+d.dy));});
 
-	var svg = d3.select("#vis_text")
+	var svg = d3.select(instance)
 		.append("svg")
 		.attr("width", width+2*text_offset)
 		.attr("height", height+2*text_offset)
@@ -91,7 +92,7 @@
 				return function(){
 					var e=180*x(d.x+d.dx/2)/Math.PI-90,
 						r=e+(n?-.5:0);
-					return "rotate("+r+")translate("+(y(d.y)+5)+")rotate("+(e>90?-180:0)+")"
+					return "rotate("+r+")translate("+(y(d.y)+text_offset)+")rotate("+(e>90?-180:0)+")"
 					}
 			})
 			.style("visibility",function(e){return t(d,e)?null:d3.select(this).style("visibility")})

@@ -1,4 +1,7 @@
 !function(){
+  var jsonfile = "basic.json",
+      instance = "#basic";
+
   var width = 960,
       height = 700,
       radius = (Math.min(width, height) / 2) - 10;
@@ -23,14 +26,14 @@
       .innerRadius(function(d) { return Math.max(0, y(d.y)); })
       .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-  var svg = d3.select("#basic")
+  var svg = d3.select(instance)
       .append("svg")
         .attr("width", width)
         .attr("height", height)
       .append("g")
         .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
 
-  d3.json("./ZoomableSunburst.json", function(error, root) {
+  d3.json(jsonfile, function(error, root) {
     if (error) throw error;
 
     svg.selectAll("path")
