@@ -38,6 +38,8 @@ class CustomizeFigure(object):
 				# bold label for axis tick. Format: ['light', 'normal', 'medium', 'semibold', 'bold', 'heavy', 'black']; Type: str
 			'ticksize': 12,
 				# font size of xtick and ytick. Format: 12; Type: int
+			'tickvisible': {'x':False,'y':False},
+				# the visibility of tick. Format: {'x':True,'y':True}; Type: dict+boolean
 			'legend': None,
 				# the legend of figure. Format: 
 				# 'legend': {
@@ -92,6 +94,29 @@ class CustomizeFigure(object):
 			}
 			self._figure.gca().set_xticklabels(self._parameters['xticklabel'],fontdict=fontdict)
 			self._figure.gca().set_xticks(self._parameters['xtick'])
+
+		if self._parameters['tickvisible'] != None:
+			axis = None
+			if not self._parameters['tickvisible']['x'] and not self._parameters['tickvisible']['y']:
+				axis = 'both'
+			elif self._parameters['tickvisible']['x'] and not self._parameters['tickvisible']['y']:
+				axis = 'y'
+			elif not self._parameters['tickvisible']['x'] and self._parameters['tickvisible']['y']:
+				axis = 'x'
+			else:
+				axis = None
+
+			if axis != None:
+				if axis == 'x':
+					self._figure.gca().set_xticks([])
+					self._figure.tick_params(axis=axis,which='both',bottom=False,top=False)
+				elif axis == 'y':
+					self._figure.gca().set_yticks([])
+					self._figure.tick_params(axis=axis,which='both',left=False,right=False)
+				else:
+					self._figure.gca().set_xticks([])
+					self._figure.gca().set_yticks([])
+					self._figure.tick_params(axis=axis,which='both',bottom=False,top=False,left=False,right=False)
 
 		if self._parameters['legend'] != None:
 			legend = {
@@ -152,12 +177,12 @@ def test():
 		# 	'linestyle':['-','-'],
 		# 	'label':['A','B'],
 		# },
-		'legend': {
-			'type':'patch',
-			'color':['#000000','#FFFF00'],
-			'linestyle':'-',
-			'label':['A','B'],
-		},
+		# 'legend': {
+		# 	'type':'patch',
+		# 	'color':['#000000','#FFFF00'],
+		# 	'linestyle':'-',
+		# 	'label':['A','B'],
+		# },
 	}
 	
 	X = np.linspace(-np.pi, np.pi, 256, endpoint=True)
