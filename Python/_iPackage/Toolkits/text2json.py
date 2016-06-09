@@ -1,6 +1,7 @@
 import re
 import json
 import sys, getopt
+import codecs
 
 
 class text2json(object):
@@ -14,15 +15,18 @@ class text2json(object):
 	def text2json(self,inputFile,outputFile):
 		previousDepth = 0
 		father = []
-		pattern = re.compile('\t')
+		p = re.compile('\t')
 
+		
 		for datum in open(inputFile).readlines():
-			currentDepth = len(pattern.findall(datum))
+			currentDepth = len(p.findall(datum))
 			datum = datum.strip()
+
 
 			previousDepth = self.InformationSecurityWeb(father,datum,previousDepth,currentDepth)
 
 		FormatRef = open(outputFile,'w')
+		# FormatRef = codecs.open(outputFile, "w", "utf-8")
 		FormatRef.write(json.dumps(father[0]))
 		FormatRef.close()
 
@@ -76,7 +80,7 @@ def main():
 		helpInfo()
 		sys.exit(1)
 	if outputFile == '':
-		outputFile = inputFile+'.out'
+		outputFile = inputFile+'.txt'
 
 	text2json(inputFile,outputFile)
 
