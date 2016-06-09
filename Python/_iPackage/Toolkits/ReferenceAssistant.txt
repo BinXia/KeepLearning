@@ -1,0 +1,354 @@
+@article{anderson2004saml,
+  title={SAML 2.0 profile of XACML},
+  author={Anderson, Anne and Lockhart, Hal},
+  journal={OASIS, September},
+  volume={51},
+  number={1.4},
+  year={2004},
+  publisher={Citeseer}
+}
+@inproceedings{lang2006multipolicy,
+  title={A multipolicy authorization framework for grid security},
+  author={Lang, Bo and Foster, Ian and Siebenlist, Frank and Ananthakrishnan, Rachana and Freeman, Tim},
+  booktitle={Network Computing and Applications, 2006. NCA 2006. Fifth IEEE International Symposium on},
+  pages={269--272},
+  year={2006},
+  organization={IEEE}
+}
+@inproceedings{hommel2005using,
+  title={Using XACML for privacy control in SAML-based identity federations},
+  author={Hommel, Wolfgang},
+  booktitle={Communications and Multimedia Security},
+  volume={3677},
+  pages={160--169},
+  year={2005},
+  organization={Springer}
+}
+@article{anderson2004xml,
+  title={XML Digital Signature profile of XACML},
+  author={Anderson, Anne},
+  year={2004}
+}
+@book{wu2005authorization,
+  title={Authorization-Authentication Using XACML and SAML},
+  author={Wu, Jake and Periorellis, Panos},
+  year={2005},
+  publisher={University of Newcastle upon Tyne, Computing Science}
+}
+@inproceedings{ardagna2010enabling,
+  title={Enabling privacy-preserving credential-based access control with XACML and SAML},
+  author={Ardagna, Claudio and De Capitani di Vimercati, Sabrina and Neven, Gregory and Paraboschi, Stefano and Preiss, Franz-Stefan and Samarati, Pierangela and Verdicchio, Mario and others},
+  booktitle={Computer and Information Technology (CIT), 2010 IEEE 10th International Conference on},
+  pages={1090--1095},
+  year={2010},
+  organization={IEEE}
+}
+@article{naedele2003standards,
+  title={Standards for XML and Web services security},
+  author={Naedele, Martin},
+  journal={Computer},
+  volume={36},
+  number={4},
+  pages={96--98},
+  year={2003},
+  publisher={IEEE}
+}
+@inproceedings{lorch2003first,
+  title={First experiences using XACML for access control in distributed systems},
+  author={Lorch, Markus and Proctor, Seth and Lepro, Rebekah and Kafura, Dennis and Shah, Sumit},
+  booktitle={Proceedings of the 2003 ACM workshop on XML security},
+  pages={25--37},
+  year={2003},
+  organization={ACM}
+}
+@incollection{damiani2004extending,
+  title={Extending policy languages to the semantic web},
+  author={Damiani, Ernesto and di Vimercati, Sabrina De Capitani and Fugazza, Cristiano and Samarati, Pierangela},
+  booktitle={Web Engineering},
+  pages={330--343},
+  year={2004},
+  publisher={Springer}
+}
+@article{garzoglio2009definition,
+  title={Definition and Implementation of a SAML-XACML Profile for Authorization Interoperability across Grid Middleware in OSG and EGEE},
+  author={Garzoglio, Gabriele and Alderman, Ian and Altunay, Mine and Ananthakrishnan, Rachana and Bester, Joe and Chadwick, Keith and Ciaschini, Vincenzo and Demchenko, Yuri and Ferraro, Andrea and Forti, Alberto and others},
+  journal={Journal of Grid Computing},
+  volume={7},
+  number={3},
+  pages={297--307},
+  year={2009},
+  publisher={Springer}
+}
+@article{lakshminarayanan2010interoperable,
+  title={Interoperable security standards for web services},
+  author={Lakshminarayanan, Sitaraman},
+  journal={IT professional},
+  number={5},
+  pages={42--47},
+  year={2010},
+  publisher={IEEE}
+}
+@inproceedings{lorch2003xacml,
+  title={An XACML-based policy management and authorization service for globus resources},
+  author={Lorch, Markus and Kafura, Dennis and Shah, Sumit},
+  booktitle={Proceedings of the 4th International Workshop on Grid Computing},
+  pages={208},
+  year={2003},
+  organization={IEEE Computer Society}
+}
+@article{hughes2005security,
+  title={Security assertion markup language (saml) v2. 0 technical overview},
+  author={Hughes, John and Maler, Eve},
+  journal={OASIS SSTC Working Draft sstc-saml-tech-overview-2.0-draft-08},
+  pages={29--38},
+  year={2005}
+}
+@article{namli2008using,
+  title={Using SAML and XACML for Web Service Security\&Privacy},
+  author={Namli, Tuncay and Dogac, Asuman},
+  year={2008}
+}
+@article{navarro2003constrained,
+  title={Constrained delegation in XML-based access control and digital rights management standards},
+  author={Navarro, Guillermo and Firozabadi, Babak Sadighi and Rissanen, Erik and Borrell, Joan},
+  journal={CNIS03, Special Session on Architectures and Languages for Digital Rights Management and Access Control},
+  pages={271--276},
+  year={2003}
+}
+@inproceedings{nasim2014xacml,
+  title={XACML-Based Access Control for Decentralized Online Social Networks},
+  author={Nasim, Robayet and Buchegger, Sonja},
+  booktitle={Proceedings of the 2014 IEEE/ACM 7th International Conference on Utility and Cloud Computing},
+  pages={671--676},
+  year={2014},
+  organization={IEEE Computer Society}
+}
+@article{singh2011authorization,
+  title={An authorization Framework for Grid Security using GT4},
+  author={Singh, Debabrata and Gupta, Bhupendra and Acharya, BM and Hota, Sarbeswar},
+  journal={IJCSI},
+  pages={310},
+  year={2011},
+  publisher={Citeseer}
+}
+@inproceedings{ran2011security,
+  title={Security XACML access control model based on SOAP encapsulate},
+  author={Ran, Chongshan and Guo, Guili},
+  booktitle={Computer Science and Service System (CSSS), 2011 International Conference on},
+  pages={2543--2546},
+  year={2011},
+  organization={IEEE}
+}
+@article{sinnema2013extensible,
+  title={eXtensible Access Control Markup Language (XACML) XML Media Type},
+  author={Sinnema, Remon and Wilde, Erik},
+  year={2013}
+}
+@article{chadwick2012privacy,
+  title={A privacy preserving authorisation system for the cloud},
+  author={Chadwick, David W and Fatema, Kaniz},
+  journal={Journal of Computer and System Sciences},
+  volume={78},
+  number={5},
+  pages={1359--1373},
+  year={2012},
+  publisher={Elsevier}
+}
+@inproceedings{jung2012access,
+  title={Access control for a Smart Grid SOA},
+  author={Jung, Moongon and Hofer, Thomas and Dobelt, Susen and Kienesberger, Georg and Judex, Florian and Kastner, Wolfgang},
+  booktitle={Internet Technology And Secured Transactions, 2012 International Conference for},
+  pages={281--287},
+  year={2012},
+  organization={IEEE}
+}
+@inproceedings{askoxylakis2015secure,
+  title={Secure and Authenticated Access to LLN Resources Through Policy Constraints},
+  author={Askoxylakis, Ioannis},
+  booktitle={Information Security Theory and Practice: 9th IFIP WG 11.2 International Conference, WISTP 2015, Heraklion, Crete, Greece, August 24-25, 2015. Proceedings},
+  volume={9311},
+  pages={271},
+  year={2015},
+  organization={Springer}
+}
+@inproceedings{kang2013security,
+  title={A Security Ontology with MDA for Software Development},
+  author={Kang, Wentao and Liang, Ying},
+  booktitle={Cyber-Enabled Distributed Computing and Knowledge Discovery (CyberC), 2013 International Conference on},
+  pages={67--74},
+  year={2013},
+  organization={IEEE}
+}
+@article{shersaml,
+  title={SAML (Security Assertion Markup Language) Security Model for RESTful Web Services},
+  author={Sher, Muhammad}
+}
+@article{jarmakiewiczdesign,
+  title={Design and implementation of multilevel security subsystem based on XACML and WEB services},
+  author={Jarmakiewicz, Jacek and Podlasek, Tomasz}
+}
+@inproceedings{mohammed2015secure,
+  title={Secure and Private Management of Healthcare Databases for Data Mining},
+  author={Mohammed, Noman and Barouti, Samira and Alhadidi, Dima and Chen, Rui},
+  booktitle={Computer-Based Medical Systems (CBMS), 2015 IEEE 28th International Symposium on},
+  pages={191--196},
+  year={2015},
+  organization={IEEE}
+}
+@article{dubey2015data,
+  title={Data Mining Based on Association Rule Privacy Preserving},
+  author={Dubey, Sulakshana and Sen, Arun},
+  journal={Binary Journal of Data Mining \& Networking},
+  volume={5},
+  number={1},
+  pages={16--21},
+  year={2015}
+}
+@inproceedings{shah2015contemporary,
+  title={Contemporary trends in Privacy Preserving Collaborative Data Mining-a survey},
+  author={Shah, Alpa and Gulati, Ravi},
+  booktitle={Electrical, Electronics, Signals, Communication and Optimization (EESCO), 2015 International Conference on},
+  pages={1--4},
+  year={2015},
+  organization={IEEE}
+}
+@inproceedings{mistry2015privacy,
+  title={Privacy preserving heuristic approach for association rule mining in distributed database},
+  author={Mistry, Bhoomika R and Desai, Amish},
+  booktitle={Innovations in Information, Embedded and Communication Systems (ICIIECS), 2015 International Conference on},
+  pages={1--7},
+  year={2015},
+  organization={IEEE}
+}
+@inproceedings{nikhil2015survey,
+  title={A Survey on Text Mining and Sentiment Analysis for Unstructured Web Data},
+  author={Nikhil, R and Tikoo, Nikhil and Kurle, Sukrit and Pisupati, Hari Sravan and Prasad, GR},
+  booktitle={Journal of Emerging Technologies and Innovative Research},
+  volume={2},
+  number={4 (April-2015)},
+  year={2015},
+  organization={JETIR}
+}
+@article{bhuyan2015privacy,
+  title={Privacy preserving sub-feature selection in distributed data mining},
+  author={Bhuyan, Hemanta Kumar and Kamila, Narendra Kumar},
+  journal={Applied Soft Computing},
+  volume={36},
+  pages={552--569},
+  year={2015},
+  publisher={Elsevier}
+}
+@article{chavda2015role,
+  title={Role and Importance of Association Mining for Preserving Data},
+  author={Chavda, Mr Mayank and Mistry, Mijalkumar},
+  journal={International Journal for Innovative Research in Science and Technology},
+  volume={1},
+  number={7},
+  pages={1--3},
+  year={2015}
+}
+@article{liu2015privacy,
+  title={Privacy preserving data mining for numerical matrices, social networks, and big data},
+  author={Liu, Lian},
+  year={2015}
+}
+@inproceedings{modi2015efficient,
+  title={An efficient approach for privacy preserving distributed mining of association rules in unsecured environment},
+  author={Modi, Chirag N and Patil, Ashwini R and Doshi, Nishant},
+  booktitle={Advances in Computing, Communications and Informatics (ICACCI), 2015 International Conference on},
+  pages={753--758},
+  year={2015},
+  organization={IEEE}
+}
+@article{parmar2015comparative,
+  title={A Comparative Study and Literature Survey on Privacy Preserving Data Mining Techniques},
+  author={Parmar, Sheryl and Gupta, Mrs Preeti and Sharma, Ms Pallavi},
+  year={2015}
+}
+@inproceedings{chouhan2015novel,
+  title={A Novel Approach of Data Sanitization using Privacy Preserving Data Mining},
+  author={Chouhan, Ashish and Sinha, Poonam and Gond, Sunita},
+  booktitle={International Journal of Engineering Research and Technology},
+  volume={4},
+  number={06, June-2015},
+  year={2015},
+  organization={ESRSA Publications}
+}
+@article{prakash2015approach,
+  title={An approach for prevention of privacy breach and information leakage in sensitive data mining},
+  author={Prakash, M and Singaravel, G},
+  journal={Computers \& Electrical Engineering},
+  year={2015},
+  publisher={Elsevier}
+}
+@article{indumathi2015securing,
+  title={Securing Big Data in Privacy Preserving Data Mining},
+  author={Indumathi, U and Meyyappan, T},
+  journal={Indian Journal of Applied Research},
+  volume={5},
+  number={8},
+  year={2015}
+}
+@article{dubey2015comparative,
+  title={Comparative Study of Frequent Item Set in Data Mining},
+  author={Dubey, Brijendra Dhar and Sharman, M and Shah, Ritesh},
+  journal={IJPLA International Journal of Programming Languages and Applications, Indora, India},
+  volume={5},
+  number={1},
+  year={2015}
+}
+@article{vinnakota2015review,
+  title={A review of Data Mining Techniques Using in Big Data},
+  author={Vinnakota, Venkata Madhavi and Krishna, Chinta Venkata Murali},
+  journal={IJSEAT},
+  volume={3},
+  number={8},
+  pages={331--336},
+  year={2015}
+}
+@article{vignan2015data,
+  title={Data Outsourcing based on Secure Association Rule Mining Processes},
+  author={Vignan¡¯s Nirula, ITW},
+  journal={machine learning},
+  volume={9},
+  number={3},
+  year={2015}
+}
+@incollection{lin2015sanitization,
+  title={A Sanitization Approach of Privacy Preserving Utility Mining},
+  author={Lin, Jerry Chun-Wei and Wu, Tsu-Yang and Fournier-Viger, Philippe and Lin, Guo and Hong, Tzung-Pei and Pan, Jeng-Shyang},
+  booktitle={Genetic and Evolutionary Computing},
+  pages={47--57},
+  year={2015},
+  publisher={Springer}
+}
+@article{rashid2015privacy,
+  title={Privacy preserving data publishing: Review},
+  author={Rashid, Asmaa Hatem and Yasin, Norizan Binti Mohd},
+  journal={International Journal of Physical Sciences},
+  volume={10},
+  number={7},
+  pages={239--247},
+  year={2015},
+  publisher={Academic Journals}
+}
+@article{singh2015review,
+  title={A review on security in Data Mining},
+  author={Singh, Amarpreet and Bhardwaj, Vinay},
+  journal={International Journal of Computer Science and Network Security (IJCSNS)},
+  volume={15},
+  number={6},
+  pages={70},
+  year={2015},
+  publisher={International Journal of Computer Science and Network Security}
+}
+@article{yun2015fast,
+  title={A fast perturbation algorithm using tree structure for privacy preserving utility mining},
+  author={Yun, Unil and Kim, Jiwon},
+  journal={Expert Systems with Applications},
+  volume={42},
+  number={3},
+  pages={1149--1165},
+  year={2015},
+  publisher={Elsevier}
+}

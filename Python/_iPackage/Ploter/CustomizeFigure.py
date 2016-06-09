@@ -38,7 +38,7 @@ class CustomizeFigure(object):
 				# bold label for axis tick. Format: ['light', 'normal', 'medium', 'semibold', 'bold', 'heavy', 'black']; Type: str
 			'ticksize': 12,
 				# font size of xtick and ytick. Format: 12; Type: int
-			'tickvisible': {'x':False,'y':False},
+			'tickvisible': {'x':True,'y':True},
 				# the visibility of tick. Format: {'x':True,'y':True}; Type: dict+boolean
 			'legend': None,
 				# the legend of figure. Format: 
