@@ -25,10 +25,20 @@ class text2json(object):
 
 			previousDepth = self.InformationSecurityWeb(father,datum,previousDepth,currentDepth)
 
+		self.delVoidChild(father[0])
+
 		FormatRef = open(outputFile,'w')
 		# FormatRef = codecs.open(outputFile, "w", "utf-8")
 		FormatRef.write(json.dumps(father[0]))
 		FormatRef.close()
+
+
+	def delVoidChild(self,node):
+		if len(node['children']) != 0:
+			for child in node['children']:
+				self.delVoidChild(child)
+		else:
+			node.pop('children')
 
 
 	def InformationSecurityWeb(self,father,datum,previousDepth,currentDepth):

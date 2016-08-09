@@ -331,15 +331,15 @@ def test():
 			'xlabel': 'Sparsity',
 			'ylabel': 'Number of Users',
 			# 'figwidth': 15
-			'legend': {
-				'type':'patch',
-				'loc':4,
-				'mode':'expand',
-				'ncol':5,
-				'color':['#000000','#000000','#000000','#000000','#000000'],
-				'linestyle':'-',
-				'label':['A','B','C','D','E'],
-			},
+			# 'legend': {
+			# 	'type':'patch',
+			# 	'loc':4,
+			# 	'mode':'expand',
+			# 	'ncol':5,
+			# 	'color':['#000000','#000000','#000000','#000000','#000000'],
+			# 	'linestyle':'-',
+			# 	'label':['A','B','C','D','E'],
+			# },
 		}
 	}
 	task._PlotFigure(data_fig=data,SaveOrShow='Show',parameters=parameters)

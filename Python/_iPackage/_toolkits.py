@@ -5,3 +5,4 @@ import sys,os
 PYTHONPATH = os.path.split(os.path.realpath(__file__))[0]
 sys.path.append(PYTHONPATH+'/Recommender')
 sys.path.append(PYTHONPATH+'/Ploter')
+sys.path.append(PYTHONPATH+'/Toolkits')

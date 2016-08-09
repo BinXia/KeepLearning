@@ -48,6 +48,7 @@ class CustomizeFigure(object):
 				# 	'linestyle':['-','-'],
 				# 	'label':['A','B'],
 				# }
+			'grid':True,
 		}
 
 		# load input parameters
@@ -119,6 +120,7 @@ class CustomizeFigure(object):
 					self._figure.tick_params(axis=axis,which='both',bottom=False,top=False,left=False,right=False)
 
 		if self._parameters['legend'] != None:
+			GiveUp = False
 			legend = {
 				'edgecolor': None,
 				'facecolor': None,
@@ -142,10 +144,11 @@ class CustomizeFigure(object):
 						plt.Line2D((0,0),(0,0), 
 							color=legend['color'][index],
 							linestyle=legend['linestyle'][index],
+							marker=legend['marker'][index],
 							label=legend['label'][index],
 						)
 					)
-			elif self._parameters['legend']['type'] == 'patch':
+			elif legend['type'] == 'patch':
 				for index in range(num):
 					handles.append(
 						mpatches.Patch(
@@ -157,16 +160,21 @@ class CustomizeFigure(object):
 							label=legend['label'][index],
 						)
 					)
-			self._figure.gca().legend(
-				handles=handles,
-				loc=legend['loc'],
-				mode=legend['mode'],
-				ncol=legend['ncol'],
-				borderaxespad=legend['borderaxespad'],
-				bbox_to_anchor=legend['bbox_to_anchor'],
-			)
+			else:
+				GiveUp = True
 
+			if not GiveUp:
+				self._figure.gca().legend(
+					handles=handles,
+					loc=legend['loc'],
+					mode=legend['mode'],
+					ncol=legend['ncol'],
+					borderaxespad=legend['borderaxespad'],
+					bbox_to_anchor=legend['bbox_to_anchor'],
+				)
 
+		if self._parameters['grid'] != None:
+			self._figure.grid(True)
 
 
 def test():
