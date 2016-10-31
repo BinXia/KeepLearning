@@ -32,6 +32,8 @@ class CustomizeFigure(object):
 				# font size of xlabel and ylabel. Format: 12; Type: int
 			'xtick': None,
 				# the positions of xticklabel. Format: [1,3,5]; Type: int
+				# or
+				# the positions of xticklabel. Format: 'NULL'; Type: str
 			'xticklabel': None,
 				# the label of xtick. Format: ['A','B']; Type: str
 			'tickweight': 'normal',
@@ -88,13 +90,18 @@ class CustomizeFigure(object):
 		if self._parameters['ylim'] != None:
 			self._figure.ylim(self._parameters['ylim'])
 
-		if self._parameters['xticklabel'] != None and self._parameters['xtick'] != None:
-			fontdict = {
-				'weight': self._parameters['tickweight'],
-				'fontsize': self._parameters['ticksize']
-			}
-			self._figure.gca().set_xticklabels(self._parameters['xticklabel'],fontdict=fontdict)
-			self._figure.gca().set_xticks(self._parameters['xtick'])
+		if self._parameters['xticklabel'] != None or self._parameters['xtick'] != None:
+			if self._parameters['xticklabel'] != None and self._parameters['xtick'] != None:
+				fontdict = {
+					'weight': self._parameters['tickweight'],
+					'fontsize': self._parameters['ticksize']
+				}
+				self._figure.gca().set_xticklabels(self._parameters['xticklabel'],fontdict=fontdict)
+				self._figure.gca().set_xticks(self._parameters['xtick'])
+			elif self._parameters['xtick'] == 'NULL':
+				self._figure.gca().set_xticks([])
+				self._figure.gca().set_yticks([])
+			
 
 		if self._parameters['tickvisible'] != None:
 			axis = None
@@ -128,6 +135,7 @@ class CustomizeFigure(object):
 				'linewidth': None,
 				'linestyle': None,
 				'label': None,
+				'fontsize': None,
 				'loc': None,
 				'mode': None,
 				'ncol': None,
@@ -146,6 +154,7 @@ class CustomizeFigure(object):
 							linestyle=legend['linestyle'][index],
 							marker=legend['marker'][index],
 							label=legend['label'][index],
+							
 						)
 					)
 			elif legend['type'] == 'patch':
@@ -169,6 +178,7 @@ class CustomizeFigure(object):
 					loc=legend['loc'],
 					mode=legend['mode'],
 					ncol=legend['ncol'],
+					fontsize=legend['fontsize'],
 					borderaxespad=legend['borderaxespad'],
 					bbox_to_anchor=legend['bbox_to_anchor'],
 				)

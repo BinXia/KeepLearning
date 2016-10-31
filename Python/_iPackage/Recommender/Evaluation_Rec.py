@@ -90,19 +90,19 @@ class Evaluation_Rec(object):
 		criteria = dict()
 
 		if 'Recall' in self._criteria:
-			criteria['Recall'] = self.__Recall(RecSet,BehSet)
+			criteria['Recall'] = float(self.__Recall(RecSet,BehSet))
 		
 		if 'Precision' in self._criteria:
-			criteria['Precision'] = self.__Precision(RecSet,BehSet)
+			criteria['Precision'] = float(self.__Precision(RecSet,BehSet))
 
 		if 'Coverage' in self._criteria:
-			criteria['Coverage'] = self.__Coverage(RecSet,AllItem)
+			criteria['Coverage'] = float(self.__Coverage(RecSet,AllItem))
 
 		if 'Coverage_Gini' in self._criteria:
-			criteria['Coverage_Gini'] = self.__Coverage_Gini(RecSet,AllItem)
+			criteria['Coverage_Gini'] = float(self.__Coverage_Gini(RecSet,AllItem))
 
 		if 'Popularity' in self._criteria:
-			criteria['Popularity'] = self.__Popularity(RecSet,item_count)
+			criteria['Popularity'] = float(self.__Popularity(RecSet,item_count))
 
 
 		return criteria

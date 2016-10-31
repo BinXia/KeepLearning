@@ -30,6 +30,11 @@ class CriteriaWriter(object):
 
 		self._writer()
 		
+	def round(self,ins,ndigits=3):
+		try:
+			return '%s'%('%.*f'%(ndigits,ins))
+		except:
+			return '[%s]'%(','.join(map(lambda x:'%.*f'%(ndigits,x),ins)))
 
 	def _writer(self):
 		PATH = os.getcwd()
@@ -40,7 +45,7 @@ class CriteriaWriter(object):
 			File.close()
 
 		File = open(PATH+'/'+'Results'+'/'+self._method+'.cri','a')
-		File.write('%s\t%s\n'%(','.join(map(str,self._parameters.values())),','.join(map(str,self._result.values()))))
+		File.write('%s\t%s\n'%(','.join(map(str,self._parameters.values())),','.join(map(lambda x:self.round(x),self._result.values()))))
 		File.close()
 
 
@@ -78,7 +83,6 @@ class Pred2Criteria(object):
 
 
 		self.criteriaCalculation(problem,tpDict,average)
-
 
 
 	def cMat2tpDict(self,cMat):

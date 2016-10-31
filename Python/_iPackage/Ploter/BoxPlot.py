@@ -342,8 +342,8 @@ def test():
 			# },
 		}
 	}
-	task._PlotFigure(data_fig=data,SaveOrShow='Show',parameters=parameters)
-	# task._PlotGroupFigure(data_fig=data_group,SaveOrShow='Show',parameters=parameters)
+	# task._PlotFigure(data_fig=data,SaveOrShow='Show',parameters=parameters)
+	task._PlotGroupFigure(data_fig=data_group,SaveOrShow='Show',parameters=parameters)
 
 
 

@@ -69,14 +69,14 @@ def main():
 	User = np.array([0,0,0,1,1,2,2,3,3,3])
 	Item = np.array([0,1,3,0,2,1,4,2,3,4])
 	Interacting = np.array([10,300,20,150,254,200,10,100,300,100])
-	# mat = coo_matrix((Interacting,(User,Item)),shape=(4,5))
+	mat = coo_matrix((Interacting,(User,Item)),shape=(4,5))
 	# mat = np.vstack((User,Item))
-	mat = User
+	# mat = User
 
 	"""
 	Test
 	"""
-	task = Norm(data=mat,dimension='1D').normalize()
+	task = Norm(data=mat,dimension='2D').normalize()
 	print task
 
 
