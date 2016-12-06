@@ -59,7 +59,7 @@ class Pred2Criteria(object):
 	Input:
 		problem: the type of problem
 			Type: str
-			Format: 'Classification', 'Clustering', and 'Regression'
+			Format: 'Classification', 'Clustering', 'Regression', or 'Recommendation'
 
 		cMat: the confusion matrix
 			Type: np.array or np.mat
@@ -67,13 +67,18 @@ class Pred2Criteria(object):
 
 		tpDict: the dictionary of ground truth and predict result
 			Type: dict
-			Format: {'GroundTruth':[1,2,1,2,0,0,0],'Predict':[2,1,1,2,2,1,0]}
+			Format: (Classification){'GroundTruth':[1,2,1,2,0,0,0],'Predict':[2,1,1,2,2,1,0]}
+					(Recommendation){'GroundTruth':[1,2,3,4,5,6,7],'Predict':[7,6,5,4,3,2,1],'GroundRel':[5,4,3,2,1,0,0]}
 
-		average: This parameter is required for multiclass/multilabel targets.
+		average: (Classification)This parameter is required for multiclass/multilabel targets.
 			Type: str
 			Format: None, 'binary', 'micro', 'macro', 'samples', and 'weighted'
+
+		topN: (Recommendation)This parameter is required for ranking metrics
+			Type: int
+			Format: 5 or 10
 	"""
-	def __init__(self,problem='Classification',cMat=[],tpDict=[],average=None):
+	def __init__(self,problem='Classification',cMat=[],tpDict=[],average=None,topN=None):
 		super(Pred2Criteria, self).__init__()
 		self.criteria = dict()
 
@@ -82,13 +87,14 @@ class Pred2Criteria(object):
 				tpDict = self.cMat2tpDict(cMat)
 
 
-		self.criteriaCalculation(problem,tpDict,average)
+		self.criteriaCalculation(problem,tpDict,average,topN)
 
 
 	def cMat2tpDict(self,cMat):
 		tpDict = {
 			'GroundTruth':[],
-			'Predict':[]
+			'Predict':[],
+			'GroundRel':[]
 		}
 
 		for label,class_array in enumerate(cMat):
@@ -100,10 +106,13 @@ class Pred2Criteria(object):
 		
 		return tpDict
 
-	def criteriaCalculation(self,problem,tpDict,average):
+	def criteriaCalculation(self,problem,tpDict,average,topN):
+		y_true,y_perd,y_rel = [],[],[]
 		y_true = tpDict['GroundTruth']
 		y_pred = tpDict['Predict']
-
+		if tpDict.has_key('GroundRel'):
+			y_rel = tpDict['GroundRel']
+			
 
 		if problem == 'Classification':
 			'''
@@ -153,6 +162,70 @@ class Pred2Criteria(object):
 			pass
 		elif problem == 'Regression':
 			pass
+		elif problem == 'Recommendation':
+			'''
+			DCG:
+				Discounted Cumulative Gain
+			'''
+			self.criteria['DCG'] = self.__DCG(y_true=y_true,y_rel=y_rel,y_pred=y_pred,topN=topN)
+
+			'''
+			NDCG:
+				Normalized DCG
+			'''
+			self.criteria['NDCG'] = self.__NDCG(y_true=y_true,y_rel=y_rel,topN=topN)
+
+			'''
+			ERR:
+				Expected Reciprocal Rank
+			'''
+			self.criteria['ERR'] = self.__ERR(y_true=y_true,y_rel=y_rel,y_pred=y_pred,topN=topN)
+
+	def __DCG(self,y_true,y_rel,y_pred,topN):
+		if y_rel == []:
+			y_rel = range(1,topN+1)
+			y_rel.extend([0]*(len(y_true)-topN))
+			y_rel = sorted(y_rel,reverse=True)
+
+		DCG = 0
+		for i in xrange(topN):
+			index = i+1
+			if index == 1:
+				DCG += 1.0*y_rel[y_true.index(y_pred[i])] if y_pred[i] in y_true else 0
+			else:
+				DCG += 1.0*y_rel[y_true.index(y_pred[i])]/np.log2(index) if y_pred[i] in y_true else 0
+		return DCG
+
+	def __NDCG(self,y_true,y_rel,topN):
+		if y_rel == []:
+			y_rel = range(1,topN+1)
+			y_rel.extend([0]*(len(y_true)-topN))
+			y_rel = sorted(y_rel,reverse=True)
+
+		IDCG = 0
+		for i in xrange(topN):
+			index = i+1
+			if index == 1:
+				IDCG += 1.0*y_rel[i]
+			else:
+				IDCG += 1.0*y_rel[i]/np.log2(index)
+		return self.criteria['DCG']/IDCG
+
+	def __ERR(self,y_true,y_rel,y_pred,topN):
+		if y_rel == []:
+			y_rel = map(lambda x:((2**x)-1.0)/(2**topN),range(1,topN+1))
+			y_rel.extend([0]*(len(y_true)-topN))
+			y_rel = sorted(y_rel,reverse=True)
+
+		ERR = 0
+		nonStop = 1
+		for i in xrange(topN):
+			index = i+1
+			current = 1.0*y_rel[y_true.index(y_pred[i])] if y_pred[i] in y_true else 0
+			ERR += (1.0/index)*(nonStop*current)
+			nonStop = (1-current)*nonStop
+
+		return ERR
 
 def main():
 	# '''
@@ -167,17 +240,29 @@ def main():
 	# task = Pred2Criteria(cMat=cMat)
 	# print task.criteria
 
-	"""
+	'''
 	Data
-	"""
-	method = 'UserCF'
-	parameters = {'K': 3, 'N': 10}
-	result = {'Recall': np.array([ 0.6,  0.2,  0.8]), 'F1': np.array([ 0.6       ,  0.25      ,  0.66666667]), 'Precision': np.array([ 0.6       ,  0.33333333,  0.57142857]), 'Accuracy': 0.53333333333333333}
+	'''
+	tpDict = {
+		'GroundTruth':[1,2,3,4,5,6,7,8,9],
+		'Predict':[1,2,3,4,5,6,7,8,9],
+		# 'GroundRel':[9,9,9,9,9,9,9,9,9]
+	}
 
-	"""
-	Test
-	"""
-	task = CriteriaWriter(method,parameters,result)
+	task = Pred2Criteria(problem='Recommendation',tpDict=tpDict,topN=5)
+	print task.criteria
+
+	# """
+	# Data
+	# """
+	# method = 'UserCF'
+	# parameters = {'K': 3, 'N': 10}
+	# result = {'Recall': np.array([ 0.6,  0.2,  0.8]), 'F1': np.array([ 0.6       ,  0.25      ,  0.66666667]), 'Precision': np.array([ 0.6       ,  0.33333333,  0.57142857]), 'Accuracy': 0.53333333333333333}
+
+	# """
+	# Test
+	# """
+	# task = CriteriaWriter(method,parameters,result)
 
 
 if __name__ == '__main__':main()
