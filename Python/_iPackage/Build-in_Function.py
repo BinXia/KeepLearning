@@ -1,6 +1,6 @@
 #coding=utf-8
 import numpy as np
-
+import os
 
 
 # numpy array (数组实例)
@@ -14,7 +14,7 @@ import numpy as np
 # filter (filter实例)
 # def function(x):
 # 	return x!=0
-# print filter(function,[0,1,2,3,4,5,6,7,8,9])
+# print filter(lambda x:x!=0,[0,1,2,3,4,5,6,7,8,9])
 
 
 # norm (范数实例)
@@ -27,7 +27,7 @@ import numpy as np
 # print a
 
 # list (列表实例)
-a = list([10,1,2,3,4,5,5,6,7,7,7])
+# a = list([10,1,2,3,4,5,5,6,7,7,7])
 # print a.count(8)
 # zip (合并实例)
 # print zip(a,a)
@@ -43,12 +43,12 @@ a = list([10,1,2,3,4,5,5,6,7,7,7])
 
 
 # mat (矩阵实例)
-from scipy.sparse import coo_matrix
-x = np.array([0,1,2,1])
-y = np.array([0,1,2,2])
-data = np.array([1,2,3,4])
+# from scipy.sparse import coo_matrix
+# x = np.array([0,1,2,1])
+# y = np.array([0,1,2,2])
+# data = np.array([1,2,3,4])
 # sparse mat (稀疏矩阵)
-z = coo_matrix((data,(x,y)),shape=(3,3)).todense()
+# z = coo_matrix((data,(x,y)),shape=(3,3)).todense()
 # SVD (SVD分解)
 # (u,s,v) = np.linalg.svd(z)
 # mat extension (矩阵扩展)
@@ -60,21 +60,18 @@ z = coo_matrix((data,(x,y)),shape=(3,3)).todense()
 # if np.array([[0]*3]).any():
 # 	print 'any'
 # sum (求和实例)
-print z
-print np.sum(z,axis=0)*2
+# print z
+# print np.sum(z,axis=0)*2
 
 
 
 
+# print ','.join(['123','abc','efd'])
 
-
-
-
-
-
-
-
-
+from itertools import combinations
+a = [(1,2),(3,4),(1)]
+for x in combinations(a,2):
+	print x
 
 
 
